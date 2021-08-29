@@ -1,9 +1,10 @@
 import {Router} from  'express'
-import  {getProducts,getProduct,getProductDetalle,getProductPaginado,getImagenes} from '../controllers/products.controller'
+import  {getDetalle,getProductPaginado,getImagenes} from '../controllers/products.controller'
 
 const router = Router()
 
 
+router.get('/api/products/:IdArticulo',getDetalle)
 router.get('/api/productspaginado/search',getProductPaginado)
 router.get('/api/products/imagenes/:IdArticulo',getImagenes)
 

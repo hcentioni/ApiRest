@@ -17,6 +17,7 @@ import marcas from './routes/marcas.routes'
 import suggest from './routes/suggest.routes'
 import clientes from './routes/clientes.routes'
 import dasboard from './routes/dashboard.routes'
+import pedidos from './routes/pedidos.routes'
 
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
@@ -40,7 +41,7 @@ app.set('secret', config.secret);
 app.set('view engine', 'pug');
 
 app.use(express.json());
-app.use(apiRoute,login,empresa,apiUsers,googlecloud,products,uplaod,marcas,suggest,clientes,dasboard)
+app.use(apiRoute,login,empresa,apiUsers,googlecloud,products,uplaod,marcas,suggest,clientes,dasboard,pedidos)
 
 
 

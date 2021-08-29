@@ -39,7 +39,10 @@ export function getProductPaginado(req, res) {
       if (req.query.tnTipoListado) {
         tnTipoListado = parseInt(req.query.tnTipoListado);
       }
-      
+      let tlMostrarConStock = 0;
+      if (req.query.tlMostrarConStock) {
+        tlMostrarConStock = parseInt(req.query.tlMostrarConStock);
+      }
       pool.query(`[Web].[ArticulosWebGet]
                @IdCliente =${req.decoded.user.IdCliente}, 
                @PageNum = ${req.query.PageNum} ,
@@ -51,7 +54,8 @@ export function getProductPaginado(req, res) {
                @Detalle= ${Detalle}, 
                @IdSubCategoria= ${IdSubCategoria}, 
                @IdFamlia= ${IdFamlia},
-               @tnTipoListado= ${tnTipoListado}`
+               @tnTipoListado= ${tnTipoListado},
+               @tlMostrarConStock= ${tlMostrarConStock}`
 
       )
         .then(result => {
@@ -75,6 +79,26 @@ export function getImagenes(req, res) {
   getPoolExisting(req.decoded.user.BaseDatos)
     .then(pool => {
       pool.query(`Compra.ArticuloImagenGet @IdArticulo = ${req.params.IdArticulo}`)
+        .then(result => {
+          res.json(result.recordset)
+        })
+    })
+    .catch(error => {
+      console.error(error)
+      let respuesta = {
+        error: true,
+        status: 400,
+        mensaje: 'No hay pool'
+      };
+      res.status(400);
+      res.json(respuesta);
+    });
+};
+export function getDetalle(req, res) {
+
+  getPoolExisting(req.decoded.user.BaseDatos)
+    .then(pool => {
+      pool.query(`Compra.ArticulosGet @IdArt = ${req.params.IdArticulo}`)
         .then(result => {
           res.json(result.recordset)
         })
