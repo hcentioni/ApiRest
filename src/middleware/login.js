@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 
 
 export function singIn(req, res, sqlConfig, poolName, next) {
+    console.log(req.body);
     createPool(sqlConfig, poolName)
         .then(pool => {
             pool.query(`Venta.ClientesLogin @userName = '${req.body.userName}',@userPass = '${req.body.userPass}'`)
