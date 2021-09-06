@@ -56,32 +56,10 @@ export function getPedidoDetalle(req, res) {
 export function postPedidoInsert(req, res) {
   getPoolExisting(req.decoded.user.BaseDatos)
     .then(pool => {
-      pool.query(`[Web].[NotaDeVentasWebInsert] 
-                      @IdVendedor =${req.body.IdVendedor},
-                      @IdCliente =${req.body.IdCliente},
-                      @NetoGrabado =${req.body.NetoGrabado},
-                      @Iva =${req.body.Iva},
-                      @Total =${req.body.Total},
-                      @Nota ='${req.body.Nota}'`)
-        .then(result => {
- 
-          req.body.Productos.forEach(element => {
-
-            pool.query(`[Web].[NotaDeVentasDetalleWebInsert] 
-                         @IdNotaDeVenta =${result.recordset[0].ID},
-                         @IdArticulo =${element.producto.IdArticulo},
-                         @CodBarra ='${element.producto.Codigo}',
-                         @ArtDetalle ='${element.producto.Detalle}',
-                         @Cantidad =${element.cantidad},
-                         @Lista_A =${element.producto.P_Neto},
-                         @Lista_B =${element.producto.P_Final},
-                         @SubTotal =${element.producto.P_FinalDto2},
-                         @IdAlicuota =5,
-                         @AlicuotaPorciento =${element.producto.Iva},
-                         @AlicuotaValor =${element.producto.IvaValor},
-                         @TotalConIva =${element.producto.IvaValor * element.cantidad},
-                         @Idmoneda =5` )
-          });
+      pool.query(`[Web].[NotadeVentasALLInsert] 
+                      @TcJson ='${JSON.stringify(req.body)}'`
+        ).then(result => {
+          console.log('Ejecuto');
           res.json(result.recordset)
         })
     })
@@ -96,5 +74,3 @@ export function postPedidoInsert(req, res) {
       res.json(respuesta);
     });
 };
-
-  

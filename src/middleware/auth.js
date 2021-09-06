@@ -9,7 +9,7 @@ export function verifyToken(req,res, next) {
       if (err) {
         return res.json({ mensaje: 'Token inválida' }).sendStatus=(401);    
       } else {
-        req.decoded = decoded;    
+        req.decoded = decoded; 
         next();
       }
     });

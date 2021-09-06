@@ -13,6 +13,7 @@ const sqlConfigStatic = {
   }
 
 export function  getparametersByUrl(req, res, next) {
+  
     createPool(sqlConfigStatic,'poolStatic')
        .then (pool => {
         pool.query(`[WebCF].[StringConnection] @tcURLBasePedidos = '${req.body.baseUrl}'`)
