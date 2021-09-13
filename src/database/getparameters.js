@@ -1,19 +1,20 @@
+import config from '../config'
 import { createPool, getPool,  closePool } from '../database/conections'
 
 const sqlConfigStatic = {
-    user: "sa",
-    password: "*Abc123*??",
-    database: "AdmSrl",
-    server: "192.168.88.2",
-    port: 1434,
+    user: config.dbuser,
+    password: config.dbpass,
+    database: config.dbcatalogo,
+    server: config.dbserver,
+    port: parseInt(config.dbport),
     options: {
-      encrypt: false, // for azure
-      trustServerCertificate: true // change to true for local dev / self-signed certs
+      encrypt:  JSON.parse(config.DBencrypt), 
+      trustServerCertificate: JSON.parse(config.DBtrustServerCertificate) 
     }
   }
 
 export function  getparametersByUrl(req, res, next) {
-  
+    console.log(req.body)
     createPool(sqlConfigStatic,'poolStatic')
        .then (pool => {
         pool.query(`[WebCF].[StringConnection] @tcURLBasePedidos = '${req.body.baseUrl}'`)

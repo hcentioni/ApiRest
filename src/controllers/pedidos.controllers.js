@@ -59,7 +59,6 @@ export function postPedidoInsert(req, res) {
       pool.query(`[Web].[NotadeVentasALLInsert] 
                       @TcJson ='${JSON.stringify(req.body)}'`
         ).then(result => {
-          console.log('Ejecuto');
           res.json(result.recordset)
         })
     })

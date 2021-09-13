@@ -3,7 +3,7 @@ import {getPoolExisting } from '../database/conections'
 export function  getSuggest(req,res ) {
     getPoolExisting(req.decoded.user.BaseDatos)
        .then (pool => {
-        pool.query(`[WebCF].[FiltroTextSearchConcatenado] @tcCaracter =${req.params.suggest}` )
+        pool.query(`[Web].[FiltroTextSearchConcatenado] @tcCaracter =${req.params.suggest}` )
             .then (result => {
                 res.json(result.recordset)  
             })

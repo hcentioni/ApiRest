@@ -37,6 +37,15 @@ app.use (helmet());
 app.use(bodyParser.json());
 app.set('port', config.port);
 app.set('secret', config.secret);
+app.set('dbuser', config.dbuser);
+app.set('dbpass', config.dbpass);
+app.set('dbcatalogo', config.dbcatalogo);
+app.set('dbserver', config.dbserver);
+app.set('dbport', config.dbport);
+app.set('dbencrypt', config.DBencrypt);
+app.set('dbtrustServerCertificate', config.DBtrustServerCertificate);
+
+
 //google storage
 app.set('view engine', 'pug');
 
