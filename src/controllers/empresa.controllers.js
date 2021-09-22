@@ -20,4 +20,3 @@ export function  getEmpresa(req,res ) {
         res.json(respuesta);
         });
   };
-  

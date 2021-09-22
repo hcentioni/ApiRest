@@ -1,7 +1,9 @@
 import {Router} from  'express'
-import {getSlaider} from '../controllers/dashboard.controllers'
+import {getSlaider, getWidget} from '../controllers/dashboard.controllers'
 const router = Router()
 
 router.get('/api/dashboard/slaider',getSlaider)
+
+router.get('/api/dashboard/widget',getWidget)
 
 export default router
